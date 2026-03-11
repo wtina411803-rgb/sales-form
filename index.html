@@ -6,17 +6,23 @@
     <title>業務案件登錄系統</title>
     <style>
         :root { --primary-color: #2563eb; --bg-color: #f8fafc; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); padding: 20px; color: #334155; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        h2 { text-align: center; color: #1e293b; margin-bottom: 24px; }
-        .section-title { background: #f1f5f9; padding: 8px 12px; border-left: 4px solid var(--primary-color); font-weight: bold; margin: 20px 0 12px 0; }
-        .form-group { margin-bottom: 16px; }
-        .label-title { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; color: #475569; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); padding: 15px; color: #334155; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 20px; font-size: 1.5rem; }
+        .section-title { background: #f1f5f9; padding: 8px 12px; border-left: 4px solid var(--primary-color); font-weight: bold; margin: 15px 0 10px 0; }
+        .form-group { margin-bottom: 12px; }
+        .label-title { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; color: #475569; }
         .input-style { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        .fee-row { display: flex; align-items: center; gap: 12px; }
-        .tax-check { display: flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 0.9rem; cursor: pointer; }
-        .tax-check input { width: 18px; height: 18px; cursor: pointer; }
-        button { width: 100%; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        
+        /* 費用欄位與勾選框排版 */
+        .fee-container { display: flex; align-items: center; gap: 10px; }
+        .fee-input { flex: 1; }
+        .tax-wrap { display: flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 0.9rem; color: #64748b; cursor: pointer; }
+        /* 調整勾選框大小，使其與文字協調 */
+        .tax-wrap input { width: 16px; height: 16px; margin: 0; cursor: pointer; }
+        
+        button { width: 100%; background: var(--primary-color); color: white; padding: 14px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
+        button:hover { background: #1d4ed8; }
     </style>
 </head>
 <body>
@@ -38,7 +44,7 @@
         <div class="section-title">二、客戶來源統計</div>
         <div class="form-group">
             <label class="label-title">介紹人員 (可選或手動輸入)</label>
-            <input list="referrer_list" name="referrer" class="input-style" placeholder="點擊選擇或直接輸入姓名">
+            <input list="referrer_list" name="referrer" class="input-style" placeholder="點擊選擇或直接輸入">
             <datalist id="referrer_list">
                 <option value="BNI"><option value="網路或電話"><option value="客戶介紹"><option value="會計師引入"><option value="裕民引入"><option value="農會介紹"><option value="其他事務所轉介">
             </datalist>
@@ -47,34 +53,34 @@
         <div class="section-title">三、委任內容及報價</div>
         <div class="form-group">
             <label class="label-title">月費 (NT$)</label>
-            <div class="fee-row">
-                <input type="number" name="fee_monthly" class="input-style" placeholder="請輸入金額">
-                <label class="tax-check"><input type="checkbox" name="tax_monthly">含稅</label>
+            <div class="fee-container">
+                <input type="number" name="fee_monthly" class="input-style fee-input" placeholder="請輸入金額">
+                <label class="tax-wrap"><input type="checkbox" name="tax_monthly">含稅</label>
             </div>
         </div>
 
         <div class="section-title">四、簽證服務費</div>
         <div class="form-group">
             <label class="label-title">稅務簽證服務費 (NT$)</label>
-            <div class="fee-row">
-                <input type="number" name="fee_audit_tax" class="input-style" placeholder="請輸入金額">
-                <label class="tax-check"><input type="checkbox" name="tax_audit_tax">含稅</label>
+            <div class="fee-container">
+                <input type="number" name="fee_audit_tax" class="input-style fee-input" placeholder="請輸入金額">
+                <label class="tax-wrap"><input type="checkbox" name="tax_audit_tax">含稅</label>
             </div>
         </div>
         <div class="form-group">
             <label class="label-title">財務簽證服務費 (NT$)</label>
-            <div class="fee-row">
-                <input type="number" name="fee_audit_finance" class="input-style" placeholder="請輸入金額">
-                <label class="tax-check"><input type="checkbox" name="tax_audit_finance">含稅</label>
+            <div class="fee-container">
+                <input type="number" name="fee_audit_finance" class="input-style fee-input" placeholder="請輸入金額">
+                <label class="tax-wrap"><input type="checkbox" name="tax_audit_finance">含稅</label>
             </div>
         </div>
 
         <div class="section-title">五、其他服務費</div>
         <div class="form-group">
             <label class="label-title">管理帳服務費 (NT$)</label>
-            <div class="fee-row">
-                <input type="number" name="fee_mgmt_account" class="input-style" placeholder="請輸入金額">
-                <label class="tax-check"><input type="checkbox" name="tax_mgmt_account">含稅</label>
+            <div class="fee-container">
+                <input type="number" name="fee_mgmt_account" class="input-style fee-input" placeholder="請輸入金額">
+                <label class="tax-wrap"><input type="checkbox" name="tax_mgmt_account">含稅</label>
             </div>
         </div>
 
@@ -84,6 +90,7 @@
 
 <script>
     const form = document.getElementById('salesForm');
+    // 請記得在這裡貼上您在 Pipedream 複製的網址
     const webhookUrl = "https://eounwocsqk3vn0c.m.pipedream.net"; 
 
     form.addEventListener('submit', async (e) => {
@@ -95,8 +102,9 @@
         const formData = new FormData(form);
         const data = {};
         
+        // 預設勾選框值為空
         const taxFields = ['tax_monthly', 'tax_audit_tax', 'tax_audit_finance', 'tax_mgmt_account'];
-        taxFields.forEach(field => data[field] = "");
+        taxFields.forEach(field => data[field] = "未勾選");
 
         formData.forEach((value, key) => {
             if (key.startsWith('tax_')) {
@@ -113,7 +121,7 @@
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' }
             });
-            alert('提交成功！資料已同步至系統。');
+            alert('提交成功！');
             form.reset();
         } catch (error) {
             alert('提交失敗，請檢查網路。');
@@ -126,4 +134,3 @@
 
 </body>
 </html>
-
