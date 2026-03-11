@@ -36,13 +36,20 @@
                     <h2 class="text-lg font-bold">一、客戶基本資料</h2>
                 </div>
                 <div class="space-y-5">
-                    <div>
-                        <label class="label-title">客戶名稱</label>
-                        <input type="text" name="client_name" class="input-style" placeholder="輸入公司或個人全名" required>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-title">客戶名稱</label>
+                            <input type="text" name="client_name" class="input-style" placeholder="公司或個人全名" required>
+                        </div>
+                        <div>
+                            <label class="label-title">營業項目</label>
+                            <input type="text" name="business_item" class="input-style" placeholder="例如：批發、餐飲" required>
+                        </div>
                     </div>
+
                     <div>
-                        <label class="label-title">客戶營運內容簡介暨會議紀要</label>
-                        <textarea name="client_desc" class="input-style" rows="3" placeholder="簡述客戶經營業務及會議內容..."></textarea>
+                        <label class="label-title">會議紀要</label>
+                        <textarea name="client_desc" class="input-style" rows="3" placeholder="請輸入會議紀錄與重點..."></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -272,6 +279,7 @@
     </script>
 </body>
 </html>
+
 
 
 
