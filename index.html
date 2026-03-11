@@ -2,256 +2,127 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>專業業務案件登錄系統 - 行動優化版</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>業務案件登錄系統</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+TC:wght@400;700&display=swap');
-        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; background-color: #f8fafc; -webkit-tap-highlight-color: transparent; }
-        .section-card { background: white; border-radius: 1.25rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 1.5rem; margin-bottom: 1.5rem; }
-        .label-title { display: block; font-size: 0.875rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem; }
-        .input-style { width: 100%; padding: 0.875rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; font-size: 1rem; transition: all 0.2s; appearance: none; }
-        .input-style:focus { outline: none; border-color: #3b82f6; ring: 3px; ring-color: rgba(59, 130, 246, 0.1); background-color: white; }
-        .service-row { background-color: #f1f5f9; padding: 1.25rem; border-radius: 1rem; margin-bottom: 1rem; }
-        /* 針對手機端的勾選框間距優化 */
-        .checkbox-group { display: flex; items-center: center; min-height: 44px; }
+        :root { --primary-color: #2563eb; --bg-color: #f8fafc; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); padding: 20px; color: #334155; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 24px; }
+        .section-title { background: #f1f5f9; padding: 8px 12px; border-left: 4px solid var(--primary-color); font-weight: bold; margin: 20px 0 12px 0; }
+        .form-group { margin-bottom: 16px; }
+        .label-title { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; color: #475569; }
+        .input-style { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        .fee-row { display: flex; align-items: center; gap: 12px; }
+        .tax-check { display: flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 0.9rem; cursor: pointer; }
+        .tax-check input { width: 18px; height: 18px; cursor: pointer; }
+        button { width: 100%; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
-<body class="p-4 md:p-12">
-    <div class="max-w-4xl mx-auto">
+<body>
+
+<div class="container">
+    <h2>業務案件登錄系統</h2>
+    <form id="salesForm">
         
-        <div class="mb-8 px-2">
-            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">案件登錄與報價系統</h1>
-            <p class="text-slate-500 mt-2 text-sm md:text-base">行動版已優化：適合手機與平板填寫</p>
+        <div class="section-title">一、基本資料</div>
+        <div class="form-group">
+            <label class="label-title">業務人員</label>
+            <input type="text" name="sales_person" class="input-style" placeholder="請輸入姓名" required>
+        </div>
+        <div class="form-group">
+            <label class="label-title">客戶名稱 (公司全銜)</label>
+            <input type="text" name="client_name" class="input-style" placeholder="請輸入客戶名稱" required>
         </div>
 
-        <form id="notionForm">
-            
-            <div class="section-card">
-                <div class="flex items-center mb-6 text-blue-600 border-b pb-3">
-                    <span class="text-xl mr-2">👤</span>
-                    <h2 class="text-lg font-bold">一、客戶基本資料</h2>
-                </div>
-                <div class="space-y-5">
-                    <div>
-                        <label class="label-title">客戶名稱</label>
-                        <input type="text" name="client_name" class="input-style" placeholder="輸入公司或個人全名" required>
-                    </div>
-                    <div>
-                        <label class="label-title">客戶營運內容簡介</label>
-                        <textarea name="client_desc" class="input-style" rows="3" placeholder="簡述客戶經營業務..."></textarea>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="label-title">引入開會日期</label>
-                            <input type="date" name="meeting_date" class="input-style">
-                        </div>
-                        <div>
-                            <label class="label-title">順序</label>
-                            <input type="number" name="order_num" class="input-style" placeholder="1">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="label-title">負責人</label>
-                            <input type="text" id="owner" name="owner" class="input-style">
-                        </div>
-                        <div>
-                            <label class="label-title flex justify-between">
-                                聯絡人
-                                <span class="text-xs font-normal text-slate-400 flex items-center">
-                                    <input type="checkbox" class="mr-1 w-4 h-4" onclick="if(this.checked)document.getElementsByName('contact')[0].value=document.getElementById('owner').value"> 同負責人
-                                </span>
-                            </label>
-                            <input type="text" name="contact" class="input-style">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="label-title">連絡電話 (市話)</label>
-                            <input type="tel" name="phone_landline" class="input-style" placeholder="04-XXXXXXXX">
-                        </div>
-                        <div>
-                            <label class="label-title">連絡電話 (手機)</label>
-                            <input type="tel" name="phone_mobile" class="input-style" placeholder="09XX-XXXXXX">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="section-title">二、客戶來源統計</div>
+        <div class="form-group">
+            <label class="label-title">介紹人員 (可選或手動輸入)</label>
+            <input list="referrer_list" name="referrer" class="input-style" placeholder="點擊選擇或直接輸入姓名">
+            <datalist id="referrer_list">
+                <option value="BNI"><option value="網路或電話"><option value="客戶介紹"><option value="會計師引入"><option value="裕民引入"><option value="農會介紹"><option value="其他事務所轉介">
+            </datalist>
+        </div>
 
-            <div class="section-card">
-                <div class="flex items-center mb-6 text-emerald-600 border-b pb-3">
-                    <span class="text-xl mr-2">📊</span>
-                    <h2 class="text-lg font-bold">二、客戶來源統計</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                        <label class="label-title">業務人員</label>
-                        <select name="sales_person" class="input-style">
-                            <option>裕民</option><option>讚嘉</option><option>小孟</option><option>其他</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="label-title">案件類型</label>
-                        <select name="case_type" class="input-style">
-                            <option>移入</option><option>新設立</option><option>其他</option>
-                        </select>
-                    </div>
-                    <div>
-    <label class="label-title">介紹人員 (可選或手動輸入)</label>
-    <input list="referrer_list" name="referrer" class="input-style" placeholder="點擊選擇或直接輸入姓名">
-    <datalist id="referrer_list">
-        <option value="BNI">
-        <option value="網路或電話">
-        <option value="客戶介紹">
-        <option value="會計師引入">
-        <option value="裕民引入">
-        <option value="農會介紹">
-        <option value="其他事務所轉介">
-    </datalist>
+        <div class="section-title">三、委任內容及報價</div>
+        <div class="form-group">
+            <label class="label-title">月費 (NT$)</label>
+            <div class="fee-row">
+                <input type="number" name="fee_monthly" class="input-style" placeholder="請輸入金額">
+                <label class="tax-check"><input type="checkbox" name="tax_monthly">含稅</label>
+            </div>
+        </div>
+
+        <div class="section-title">四、簽證服務費</div>
+        <div class="form-group">
+            <label class="label-title">稅務簽證服務費 (NT$)</label>
+            <div class="fee-row">
+                <input type="number" name="fee_audit_tax" class="input-style" placeholder="請輸入金額">
+                <label class="tax-check"><input type="checkbox" name="tax_audit_tax">含稅</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label-title">財務簽證服務費 (NT$)</label>
+            <div class="fee-row">
+                <input type="number" name="fee_audit_finance" class="input-style" placeholder="請輸入金額">
+                <label class="tax-check"><input type="checkbox" name="tax_audit_finance">含稅</label>
+            </div>
+        </div>
+
+        <div class="section-title">五、其他服務費</div>
+        <div class="form-group">
+            <label class="label-title">管理帳服務費 (NT$)</label>
+            <div class="fee-row">
+                <input type="number" name="fee_mgmt_account" class="input-style" placeholder="請輸入金額">
+                <label class="tax-check"><input type="checkbox" name="tax_mgmt_account">含稅</label>
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn">提交案件資料</button>
+    </form>
 </div>
-                    <div>
-                        <label class="label-title">介紹組別</label>
-                        <select name="group" class="input-style">
-                            <option>A</option><option>B</option><option>C</option><option>D</option><option>無</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="label-title">介紹客戶</label>
-                        <input type="text" name="intro_client" class="input-style" placeholder="現有客戶名稱">
-                    </div>
-                </div>
-            </div>
 
-            <div class="section-card">
-                <div class="flex items-center mb-6 text-orange-600 border-b pb-3">
-                    <span class="text-xl mr-2">💰</span>
-                    <h2 class="text-lg font-bold">三、客戶報價</h2>
-                </div>
+<script>
+    const form = document.getElementById('salesForm');
+    const webhookUrl = "您的PIPEDREAM_WEBHOOK_網址"; 
 
-                <h3 class="font-bold text-slate-800 mb-3 ml-1"> (一) 帳務服務費</h3>
-                <div class="service-row grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">收費方式</label>
-                        <select name="pay_method" class="input-style mt-1">
-                            <option>期收</option><option>年收</option><option>半年收</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">收款月份</label>
-                        <select name="pay_month" class="input-style mt-1">
-                            <option>14個月+文具</option><option>13個月+文具</option>
-                            <option>14個月(免文具)</option><option>13個月免文具</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">月費 (NT$)</label>
-                        <input type="number" name="fee_monthly" class="input-style mt-1" placeholder="0">
-                    </div>
-                </div>
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerText = "資料傳送中...";
 
-                <h3 class="font-bold text-slate-800 mb-3 mt-6 ml-1"> (二) 工商服務費</h3>
-                <div class="service-row grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">服務項目</label>
-                        <select name="industrial_service" class="input-style mt-1">
-                            <option>無</option><option>新設立</option><option>變更</option><option>其他</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">服務費 (NT$)</label>
-                        <input type="number" name="fee_industrial" class="input-style mt-1" placeholder="0">
-                    </div>
-                </div>
+        const formData = new FormData(form);
+        const data = {};
+        
+        const taxFields = ['tax_monthly', 'tax_audit_tax', 'tax_audit_finance', 'tax_mgmt_account'];
+        taxFields.forEach(field => data[field] = "");
 
-                <h3 class="font-bold text-slate-800 mb-3 mt-6 ml-1"> (三) 管理帳服務</h3>
-                <div class="service-row flex flex-col md:flex-row gap-4">
-                    <div class="flex items-center space-x-8 py-2 px-1">
-                        <label class="flex items-center text-sm font-semibold text-slate-700 cursor-pointer">
-                            <input type="radio" name="mgmt_need" value="有需求" class="w-5 h-5 mr-2"> 有需求
-                        </label>
-                        <label class="flex items-center text-sm font-semibold text-slate-700 cursor-pointer">
-                            <input type="radio" name="mgmt_need" value="無需求" class="w-5 h-5 mr-2" checked> 無需求
-                        </label>
-                    </div>
-                    <div class="flex-1">
-                        <input type="number" name="fee_mgmt" class="input-style" placeholder="管理帳服務費 (NT$)">
-                    </div>
-                </div>
-
-                <h3 class="font-bold text-slate-800 mb-3 mt-6 ml-1"> (四) 簽證服務</h3>
-                <div class="service-row space-y-4">
-                    <div class="flex flex-col md:flex-row gap-3 md:items-center">
-                        <label class="flex items-center text-sm font-semibold text-slate-700 w-24 cursor-pointer">
-                            <input type="checkbox" name="audit_tax" class="w-5 h-5 mr-2"> 稅簽
-                        </label>
-                        <input type="number" name="fee_audit_tax" class="input-style flex-1" placeholder="稅簽服務費 (NT$)">
-                    </div>
-                    <div class="flex flex-col md:flex-row gap-3 md:items-center border-t border-slate-200 pt-4">
-                        <label class="flex items-center text-sm font-semibold text-slate-700 w-24 cursor-pointer">
-                            <input type="checkbox" name="audit_finance" class="w-5 h-5 mr-2"> 財簽
-                        </label>
-                        <input type="number" name="fee_audit_finance" class="input-style flex-1" placeholder="財簽服務費 (NT$)">
-                    </div>
-                </div>
-
-                <h3 class="font-bold text-slate-800 mb-3 mt-6 ml-1"> (五) 其他服務</h3>
-                <div class="service-row grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">其他專案內容</label>
-                        <input type="text" name="other_project" class="input-style mt-1" placeholder="請註明項目...">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-500">服務費 (NT$)</label>
-                        <input type="number" name="fee_other" class="input-style mt-1" placeholder="0">
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" id="submitBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:bg-blue-600 transition-all transform active:scale-[0.98] mb-12">
-                確認並提交完整報價單
-            </button>
-        </form>
-    </div>
-
-    <script>
-        document.getElementById('notionForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerText = '正在上傳雲端...';
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-            
-            const checkboxNames = ['audit_tax', 'audit_finance'];
-            checkboxNames.forEach(name => {
-                data[name] = data[name] === "on" ? "勾選" : "未勾選";
-            });
-
-            const webhookUrl = 'https://eomty18s1cj996z.m.pipedream.net/';
-
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                if (response.ok) {
-                    alert('🎉 報價單登錄成功！');
-                    e.target.reset();
-                    window.scrollTo(0,0);
-                } else {
-                    alert('伺服器無回應，請確認 Pipedream 是否已部署。');
-                }
-            } catch (err) {
-                alert('連線失敗，請檢查網路環境。');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = '確認並提交完整報價單';
+        formData.forEach((value, key) => {
+            if (key.startsWith('tax_')) {
+                data[key] = "含稅";
+            } else {
+                data[key] = value;
             }
-        };
-    </script>
+        });
+
+        try {
+            await fetch(webhookUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            alert('提交成功！資料已同步至系統。');
+            form.reset();
+        } catch (error) {
+            alert('提交失敗，請檢查網路。');
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "提交案件資料";
+        }
+    });
+</script>
+
 </body>
 </html>
-
